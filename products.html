@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products and order — TZR Global</title>
+  <meta name="description" content="Browse TZR Global products and send a WhatsApp order to Mr Olivie." />
+  <meta name="theme-color" content="#1a1b2a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@500;600&family=Wix+Madefor+Text:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-nav scrolled" id="nav">
+    <div class="wrap inner">
+      <a class="brand" href="index.html">
+        <img class="brand-mark" src="assets/logo-mark.jpg" width="40" height="40" alt="TZR Global mark" />
+        <div class="brand-text">
+          TZR Global
+          <span>Import, sourcing, export</span>
+        </div>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links">
+          <li><a href="index.html#products">Overview</a></li>
+          <li><a href="products.html" aria-current="page">All products</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary" href="https://wa.me/237650457632">WhatsApp</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <h1>All products</h1>
+        <p>Add items to your order, enter destination details, then send a formatted request to Mr Olivie on WhatsApp.</p>
+      </div>
+    </section>
+
+    <div class="wrap products-layout">
+      <div class="product-grid" id="product-grid"></div>
+
+      <aside class="order-panel" aria-labelledby="order-title">
+        <h2 id="order-title">Your order</h2>
+        <p>Build a list, then open WhatsApp with a ready message.</p>
+        <p class="order-empty" id="order-empty">No items yet. Use Add on any product.</p>
+        <ul class="order-list" id="order-list" hidden></ul>
+
+        <form id="order-form">
+          <div class="field">
+            <label for="customer-name">Your name</label>
+            <input id="customer-name" name="name" autocomplete="name" required placeholder="Full name" />
+          </div>
+          <div class="field">
+            <label for="customer-country">Destination country</label>
+            <input id="customer-country" name="country" required placeholder="e.g. Cameroon" />
+          </div>
+          <div class="field">
+            <label for="customer-city">City / port</label>
+            <input id="customer-city" name="city" placeholder="Optional" />
+          </div>
+          <div class="field">
+            <label for="customer-notes">Notes</label>
+            <textarea id="customer-notes" name="notes" placeholder="Sizes, brands, container preference…"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit" id="send-order">Send order on WhatsApp</button>
+          <p class="order-hint">Opens WhatsApp with a formatted message. Nothing is stored on this site.</p>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap inner">
+      <div><strong>TZR Global</strong>, import and export from China</div>
+      <div>Mr Olivie, <a href="https://wa.me/237650457632">+237 6 50 45 76 32</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      var WA = '237650457632';
+      var PRODUCTS = [
+        { id: 'laptops', name: 'Laptops', blurb: 'Business and consumer units for retail and bulk orders.' },
+        { id: 'phones', name: 'Phones', blurb: 'Handsets for resellers who need steady China-side supply.' },
+        { id: 'smart-tvs', name: 'Smart TVs', blurb: 'Pallet and container quantities for shops and distributors.' },
+        { id: 'clothes', name: 'Clothes', blurb: 'Apparel lots for stores, brands and restock programs.' },
+        { id: 'shoes', name: 'Shoes', blurb: 'Footwear assortments sourced to your size runs and styles.' },
+        { id: 'bags', name: 'Bags', blurb: 'Bags and soft goods for fashion, travel and everyday retail.' },
+        { id: 'fertilizer', name: 'Fertilizer', blurb: 'Agricultural fertilizer for importers and farm supply chains.' },
+        { id: 'gmo', name: 'GMO', blurb: 'GMO product lines for qualified buyers in regulated markets.' },
+        { id: 'other', name: 'Other / custom', blurb: 'Describe what you need in the notes. If China can source it, we can quote it.' }
+      ];
+
+      var cart = {};
+      var grid = document.getElementById('product-grid');
+      var list = document.getElementById('order-list');
+      var empty = document.getElementById('order-empty');
+
+      function qtyOf(id) { return cart[id] || 0; }
+
+      function renderGrid() {
+        grid.innerHTML = PRODUCTS.map(function (p) {
+          var q = qtyOf(p.id);
+          return (
+            '<article class="product-card" data-id="' + p.id + '">' +
+              '<h2>' + p.name + '</h2>' +
+              '<p>' + p.blurb + '</p>' +
+              '<div class="meta">' + (q ? q + ' in order' : 'Not in order') + '</div>' +
+              '<div class="product-actions">' +
+                '<div class="qty" role="group" aria-label="Quantity for ' + p.name + '">' +
+                  '<button type="button" data-act="dec" data-id="' + p.id + '" aria-label="Decrease">−</button>' +
+                  '<input type="number" min="0" step="1" value="' + q + '" data-id="' + p.id + '" aria-label="Quantity" />' +
+                  '<button type="button" data-act="inc" data-id="' + p.id + '" aria-label="Increase">+</button>' +
+                '</div>' +
+                '<button type="button" class="btn btn-sm btn-outline-dark" data-act="add" data-id="' + p.id + '">Add</button>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join('');
+      }
+
+      function renderCart() {
+        var ids = Object.keys(cart).filter(function (id) { return cart[id] > 0; });
+        if (!ids.length) {
+          list.hidden = true;
+          list.innerHTML = '';
+          empty.hidden = false;
+          return;
+        }
+        empty.hidden = true;
+        list.hidden = false;
+        list.innerHTML = ids.map(function (id) {
+          var p = PRODUCTS.find(function (x) { return x.id === id; });
+          return (
+            '<li>' +
+              '<span>' + p.name + ' × ' + cart[id] + '</span>' +
+              '<button type="button" data-act="remove" data-id="' + id + '">Remove</button>' +
+            '</li>'
+          );
+        }).join('');
+      }
+
+      function setQty(id, n) {
+        n = Math.max(0, Math.floor(Number(n) || 0));
+        if (n <= 0) delete cart[id];
+        else cart[id] = n;
+        renderGrid();
+        renderCart();
+      }
+
+      grid.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-act]');
+        if (!btn) return;
+        var id = btn.getAttribute('data-id');
+        var act = btn.getAttribute('data-act');
+        var cur = qtyOf(id);
+        if (act === 'inc' || act === 'add') setQty(id, cur + 1);
+        if (act === 'dec') setQty(id, cur - 1);
+      });
+
+      grid.addEventListener('change', function (e) {
+        var input = e.target.closest('input[data-id]');
+        if (!input) return;
+        setQty(input.getAttribute('data-id'), input.value);
+      });
+
+      list.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-act="remove"]');
+        if (!btn) return;
+        setQty(btn.getAttribute('data-id'), 0);
+      });
+
+      document.getElementById('order-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var ids = Object.keys(cart).filter(function (id) { return cart[id] > 0; });
+        if (!ids.length) {
+          alert('Add at least one product to your order.');
+          return;
+        }
+        var name = document.getElementById('customer-name').value.trim();
+        var country = document.getElementById('customer-country').value.trim();
+        var city = document.getElementById('customer-city').value.trim();
+        var notes = document.getElementById('customer-notes').value.trim();
+
+        var lines = ids.map(function (id) {
+          var p = PRODUCTS.find(function (x) { return x.id === id; });
+          return '• ' + p.name + ' × ' + cart[id];
+        });
+
+        var msg =
+          'TZR Global order request\n' +
+          '────────────────\n' +
+          'Name: ' + name + '\n' +
+          'Country: ' + country + '\n' +
+          (city ? 'City / port: ' + city + '\n' : '') +
+          '\nProducts:\n' + lines.join('\n') + '\n' +
+          (notes ? '\nNotes:\n' + notes + '\n' : '') +
+          '\nPlease share availability, pricing and shipping options.';
+
+        var url = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+        window.open(url, '_blank', 'noopener');
+      });
+
+      renderGrid();
+      renderCart();
+    })();
+  </script>
+</body>
+</html>
