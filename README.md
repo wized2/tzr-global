@@ -1,18 +1,10 @@
 # TZR Global
 
-Public site for **TZR Global** — import, sourcing and export from China.
+Import, sourcing and export site for **TZR Global** (Mr Olivie).
 
-- Contact: *Mr Olivie*
 - WhatsApp: [+237 6 50 45 76 32](https://wa.me/237650457632)
-
-## Local preview
-
-Open `index.html` in a browser, or:
+- Deploy: **Vercel** (GitHub Pages disabled)
 
 ```bash
-npx serve .
+npx vercel
 ```
-
-## GitHub Pages
-
-This repo is static. Enable Pages on the `main` branch root.
