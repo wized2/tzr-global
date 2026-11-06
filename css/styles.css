@@ -16,6 +16,7 @@
   --color-scrim-1: oklch(12% 0.02 268 / 0.35);
   --color-scrim-2: oklch(12% 0.02 268 / 0.15);
   --color-scrim-3: oklch(12% 0.02 268 / 0.55);
+  --color-hero-glow: oklch(30% 0.06 274 / 0.35);
   --color-shade: oklch(10% 0.022 268);
   --color-accent: oklch(77% 0.10 274);
   --color-accent-ink: oklch(19% 0.035 274);
@@ -608,7 +609,7 @@ section { padding-block: var(--space-8); }
   padding: 7.5rem 0 var(--space-6);
   border-bottom: var(--rule-hair) solid var(--color-rule);
   background:
-    radial-gradient(ellipse 60% 50% at 80% 0%, oklch(30% 0.06 274 / 0.35), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 0%, var(--color-hero-glow), transparent 70%),
     var(--color-paper);
 }
 .page-hero h1 {
@@ -685,7 +686,7 @@ section { padding-block: var(--space-8); }
   background: var(--color-card);
   border: var(--rule-hair) solid var(--color-well-rule);
   border-radius: var(--radius-pill);
-  padding: 0.25rem 0.55rem;
+  padding: var(--space-1) 0.55rem;
 }
 .qty button {
   appearance: none;
@@ -710,7 +711,7 @@ section { padding-block: var(--space-8); }
   color: var(--color-well-ink);
 }
 .btn-sm {
-  padding: 0.5rem 0.9rem;
+  padding: var(--space-2) 0.9rem;
   font-size: 0.88rem;
 }
 .btn-outline-dark {
@@ -726,10 +727,10 @@ section { padding-block: var(--space-8); }
   position: sticky;
   top: 5.5rem;
   background: var(--color-paper-2);
+  color: var(--color-ink);
   border: var(--rule-hair) solid var(--color-rule);
   border-radius: var(--radius-card);
   padding: var(--space-5);
-  box-shadow: var(--shadow-card);
   min-width: 0;
 }
 .order-panel h2 {
@@ -811,4 +812,10 @@ section { padding-block: var(--space-8); }
   }
   .order-panel { position: static; }
   .product-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
