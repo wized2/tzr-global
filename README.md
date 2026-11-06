@@ -2,7 +2,7 @@
 
 Public site for **TZR Global** — import, sourcing and export from China.
 
-- Contact: Mr Olivie
+- Contact: *Mr Olivie*
 - WhatsApp: [+237 6 50 45 76 32](https://wa.me/237650457632)
 
 ## Local preview
