@@ -31,7 +31,8 @@
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
-      <a class="btn btn-primary" href="https://wa.me/237650457632">WhatsApp</a>
+      <a class="btn btn-primary" href="https://wa.me/237650457632"><i data-lucide="message-circle" class="icon-inline"></i> WhatsApp</a>
+      <a class="btn btn-ghost" href="tel:+15169520604"><i data-lucide="phone" class="icon-inline"></i> Call</a>
     </div>
   </header>
 
@@ -66,6 +67,10 @@
             <input id="customer-city" name="city" placeholder="Optional" />
           </div>
           <div class="field">
+            <label for="customer-phone">Your phone (optional)</label>
+            <input id="customer-phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 …" />
+          </div>
+          <div class="field">
             <label for="customer-notes">Notes</label>
             <textarea id="customer-notes" name="notes" placeholder="Sizes, brands, container preference…"></textarea>
           </div>
@@ -79,7 +84,7 @@
   <footer class="site-footer">
     <div class="wrap inner">
       <div><strong>TZR Global</strong>, import and export from China</div>
-      <div>Mr Olivie, <a href="https://wa.me/237650457632">+237 6 50 45 76 32</a></div>
+      <div>Mr Olivie · <a href="https://wa.me/237650457632">WhatsApp +237 6 50 45 76 32</a> · <a href="tel:+15169520604">+1 (516) 952-0604</a></div>
     </div>
   </footer>
 
@@ -189,6 +194,7 @@
         var country = document.getElementById('customer-country').value.trim();
         var city = document.getElementById('customer-city').value.trim();
         var notes = document.getElementById('customer-notes').value.trim();
+        var phone = document.getElementById('customer-phone').value.trim();
 
         var lines = ids.map(function (id) {
           var p = PRODUCTS.find(function (x) { return x.id === id; });
@@ -201,6 +207,7 @@
           'Name: ' + name + '\n' +
           'Country: ' + country + '\n' +
           (city ? 'City / port: ' + city + '\n' : '') +
+          (phone ? 'Phone: ' + phone + '\n' : '') +
           '\nProducts:\n' + lines.join('\n') + '\n' +
           (notes ? '\nNotes:\n' + notes + '\n' : '') +
           '\nPlease share availability, pricing and shipping options.';

@@ -819,3 +819,100 @@ button:disabled,
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+
+/* Contact channels */
+.channel-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.channel:hover {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+.channel svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+  stroke: var(--color-accent-hi);
+}
+.channel-wa {
+  background: var(--color-signal);
+  border-color: transparent;
+  color: var(--color-signal-ink);
+}
+.channel-wa svg { stroke: var(--color-signal-ink); }
+.channel-wa:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.channel-wa:hover svg { stroke: var(--color-paper); }
+
+.icon-inline {
+  width: 1.1rem;
+  height: 1.1rem;
+  stroke: currentColor;
+  flex-shrink: 0;
+}
+.well-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke: var(--color-accent-deep);
+  margin-bottom: var(--space-2);
+}
+.service-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  stroke: var(--color-accent-hi);
+  margin-bottom: var(--space-3);
+}
+
+/* FAQ for visible SEO (not hidden) */
+.faq {
+  display: grid;
+  gap: var(--space-3);
+}
+.faq details {
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  padding: var(--space-4) var(--space-5);
+}
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.faq details p {
+  margin: var(--space-3) 0 0;
+  color: var(--color-muted);
+  max-width: 60ch;
+}
+
+/* Touch-friendly */
+@media (pointer: coarse) {
+  .btn, .channel, .nav-links a {
+    min-height: 44px;
+  }
+}
+
+/* Large desktop measure */
+@media (min-width: 1400px) {
+  :root { --container: 1200px; }
+}

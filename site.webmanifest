@@ -1,0 +1,14 @@
+{
+  "name": "TZR Global — Import & Export from China",
+  "short_name": "TZR Global",
+  "description": "Import, sourcing and export from China. Electronics, apparel, agri goods worldwide.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#15162a",
+  "theme_color": "#15162a",
+  "lang": "en",
+  "icons": [
+    { "src": "/assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
