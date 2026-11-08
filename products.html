@@ -17,10 +17,10 @@
   <header class="site-nav scrolled" id="nav">
     <div class="wrap inner">
       <a class="brand" href="index.html">
-        <img class="brand-mark" src="assets/logo-mark.jpg" width="40" height="40" alt="TZR Global mark" />
+        <img class="brand-mark" src="assets/logo-mark.jpg" width="40" height="40" alt="TZR Global" />
         <div class="brand-text">
-          TZR Global
-          <span>Import, sourcing, export</span>
+          <strong class="brand-name">TZR Global</strong>
+          <span class="brand-tag">Import · Sourcing · Export</span>
         </div>
       </a>
       <nav aria-label="Primary">
@@ -31,8 +31,16 @@
           <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
-      <a class="btn btn-primary" href="https://wa.me/237650457632"><i data-lucide="message-circle" class="icon-inline"></i> WhatsApp</a>
-      <a class="btn btn-ghost" href="tel:+15169520604"><i data-lucide="phone" class="icon-inline"></i> Call</a>
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="https://wa.me/237650457632" aria-label="WhatsApp">
+          <i data-lucide="message-circle" class="icon-inline"></i>
+          <span class="btn-label">WhatsApp</span>
+        </a>
+        <a class="btn btn-ghost btn-sm" href="tel:+15169520604" aria-label="Call">
+          <i data-lucide="phone" class="icon-inline"></i>
+          <span class="btn-label">Call</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -48,7 +56,7 @@
       <div class="product-grid" id="product-grid"></div>
 
       <aside class="order-panel" aria-labelledby="order-title">
-        <h2 id="order-title">Your order</h2>
+        <h2 id="order-title"><i data-lucide="shopping-cart" class="icon-inline"></i> Your order</h2>
         <p>Build a list, then open WhatsApp with a ready message.</p>
         <p class="order-empty" id="order-empty">No items yet. Use Add on any product.</p>
         <ul class="order-list" id="order-list" hidden></ul>
@@ -74,7 +82,7 @@
             <label for="customer-notes">Notes</label>
             <textarea id="customer-notes" name="notes" placeholder="Sizes, brands, container preference…"></textarea>
           </div>
-          <button class="btn btn-primary" type="submit" id="send-order">Send order on WhatsApp</button>
+          <button class="btn btn-primary" type="submit" id="send-order"><i data-lucide="send" class="icon-inline"></i> Send order on WhatsApp</button>
           <p class="order-hint">Opens WhatsApp with a formatted message. Nothing is stored on this site.</p>
         </form>
       </aside>
@@ -93,15 +101,15 @@
       document.documentElement.classList.add('js');
       var WA = '237650457632';
       var PRODUCTS = [
-        { id: 'laptops', name: 'Laptops', blurb: 'Business and consumer units for retail and bulk orders.' },
-        { id: 'phones', name: 'Phones', blurb: 'Handsets for resellers who need steady China-side supply.' },
-        { id: 'smart-tvs', name: 'Smart TVs', blurb: 'Pallet and container quantities for shops and distributors.' },
-        { id: 'clothes', name: 'Clothes', blurb: 'Apparel lots for stores, brands and restock programs.' },
-        { id: 'shoes', name: 'Shoes', blurb: 'Footwear assortments sourced to your size runs and styles.' },
-        { id: 'bags', name: 'Bags', blurb: 'Bags and soft goods for fashion, travel and everyday retail.' },
-        { id: 'fertilizer', name: 'Fertilizer', blurb: 'Agricultural fertilizer for importers and farm supply chains.' },
-        { id: 'gmo', name: 'GMO', blurb: 'GMO product lines for qualified buyers in regulated markets.' },
-        { id: 'other', name: 'Other / custom', blurb: 'Describe what you need in the notes. If China can source it, we can quote it.' }
+        { id: 'laptops', icon: 'laptop', name: 'Laptops', blurb: 'Business and consumer units for retail and bulk orders.' },
+        { id: 'phones', icon: 'smartphone', name: 'Phones', blurb: 'Handsets for resellers who need steady China-side supply.' },
+        { id: 'smart-tvs', icon: 'tv', name: 'Smart TVs', blurb: 'Pallet and container quantities for shops and distributors.' },
+        { id: 'clothes', icon: 'shirt', name: 'Clothes', blurb: 'Apparel lots for stores, brands and restock programs.' },
+        { id: 'shoes', icon: 'footprints', name: 'Shoes', blurb: 'Footwear assortments sourced to your size runs and styles.' },
+        { id: 'bags', icon: 'briefcase', name: 'Bags', blurb: 'Bags and soft goods for fashion, travel and everyday retail.' },
+        { id: 'fertilizer', icon: 'sprout', name: 'Fertilizer', blurb: 'Agricultural fertilizer for importers and farm supply chains.' },
+        { id: 'gmo', icon: 'leaf', name: 'GMO', blurb: 'GMO product lines for qualified buyers in regulated markets.' },
+        { id: 'other', icon: 'boxes', name: 'Other / custom', blurb: 'Describe what you need in the notes. If China can source it, we can quote it.' }
       ];
 
       var cart = {};
@@ -112,24 +120,29 @@
       function qtyOf(id) { return cart[id] || 0; }
 
       function renderGrid() {
-        grid.innerHTML = PRODUCTS.map(function (p) {
+        grid.innerHTML = PRODUCTS.map(function (p, i) {
           var q = qtyOf(p.id);
+          var icon = p.icon || 'package';
           return (
-            '<article class="product-card" data-id="' + p.id + '">' +
+            '<article class="product-card" data-id="' + p.id + '" style="--d:' + (i * 45) + 'ms">' +
+              '<div class="product-card-icon" aria-hidden="true"><i data-lucide="' + icon + '"></i></div>' +
               '<h2>' + p.name + '</h2>' +
               '<p>' + p.blurb + '</p>' +
               '<div class="meta">' + (q ? q + ' in order' : 'Not in order') + '</div>' +
               '<div class="product-actions">' +
                 '<div class="qty" role="group" aria-label="Quantity for ' + p.name + '">' +
-                  '<button type="button" data-act="dec" data-id="' + p.id + '" aria-label="Decrease">-</button>' +
+                  '<button type="button" data-act="dec" data-id="' + p.id + '" aria-label="Decrease">−</button>' +
                   '<input type="number" min="0" step="1" value="' + q + '" data-id="' + p.id + '" aria-label="Quantity" />' +
                   '<button type="button" data-act="inc" data-id="' + p.id + '" aria-label="Increase">+</button>' +
                 '</div>' +
-                '<button type="button" class="btn btn-sm btn-outline-dark" data-act="add" data-id="' + p.id + '">Add</button>' +
+                '<button type="button" class="btn btn-sm btn-outline-dark" data-act="add" data-id="' + p.id + '">' +
+                  '<i data-lucide="plus" class="icon-inline"></i> Add' +
+                '</button>' +
               '</div>' +
             '</article>'
           );
         }).join('');
+        if (window.lucide) lucide.createIcons();
       }
 
       function renderCart() {
