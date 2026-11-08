@@ -33,6 +33,10 @@
   --color-well-rule: oklch(87.5% 0.009 75);
   --color-card: oklch(99.5% 0.003 75);
   --color-signal: oklch(72% 0.17 145);
+  --color-hero-ink: oklch(98% 0.01 95);
+  --color-hero-ink-2: oklch(94% 0.01 95 / 0.92);
+  --color-hero-muted: oklch(90% 0.01 95 / 0.75);
+  --color-hero-btn: oklch(0% 0 0 / 0.22);
   --color-veil-1: var(--color-veil-1);
   --color-veil-2: var(--color-veil-2);
   --color-veil-3: var(--color-veil-3);
@@ -1381,3 +1385,52 @@ button:disabled,
 @media (prefers-reduced-motion: reduce) {
   .hero-media img { animation: none; transform: none; }
 }
+
+/* High-contrast type over photo */
+.hero-copy h1 {
+  color: var(--color-hero-ink) !important;
+  text-shadow: 0 1px 2px oklch(0% 0 0 / 0.45), 0 8px 28px oklch(0% 0 0 / 0.35);
+}
+.hero-lead {
+  color: var(--color-hero-ink-2) !important;
+  text-shadow: 0 1px 2px oklch(0% 0 0 / 0.4);
+}
+.hero-facts dt {
+  color: var(--color-hero-muted) !important;
+}
+.hero-facts dd,
+.hero-facts a {
+  color: var(--color-hero-ink) !important;
+  text-shadow: 0 1px 2px oklch(0% 0 0 / 0.35);
+}
+.hero-facts a {
+  border-bottom-color: color-mix(in oklab, var(--color-hero-ink) 40%, transparent);
+}
+.btn-line {
+  color: var(--color-hero-ink) !important;
+  border-color: color-mix(in oklab, var(--color-hero-ink) 55%, transparent) !important;
+  background: var(--color-hero-btn) !important;
+  backdrop-filter: blur(8px);
+}
+.btn-line:hover {
+  background: color-mix(in oklab, black 36%, transparent) !important;
+  border-color: color-mix(in oklab, var(--color-hero-ink) 85%, transparent) !important;
+}
+.hero-veil {
+  background:
+    linear-gradient(180deg, var(--color-veil-1) 0%, var(--color-veil-2) 48%, var(--color-paper) 100%),
+    linear-gradient(90deg, var(--color-veil-3) 0%, transparent 60%) !important;
+}
+
+/* Ensure lucide icons paint in product cards */
+.product-card-icon {
+  color: var(--color-accent-deep);
+}
+.product-card-icon svg,
+.product-card-icon i {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+  stroke: currentColor;
+}
+
